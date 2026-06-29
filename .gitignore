@@ -1,4 +1,7 @@
 .env
+secrets/
+*.session
+*.session-journal
 __pycache__/
 *.py[cod]
 outputs/
