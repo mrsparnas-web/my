@@ -4,20 +4,22 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>VGTTX preview</title>
-<style>html,body{margin:0;background:#020304;color:#fff;font-family:Arial,sans-serif}#loading{position:fixed;inset:0;display:grid;place-items:center;font-size:12px;letter-spacing:.18em;text-transform:uppercase}</style>
+<style>html,body{margin:0;background:#020304;color:#fff;font-family:Arial,sans-serif}#loading{position:fixed;inset:0;display:grid;place-items:center;padding:24px;text-align:center;font-size:12px;letter-spacing:.18em;text-transform:uppercase}</style>
 </head>
 <body>
 <div id="loading">Loading preview…</div>
 <script>
 (async function(){
   try{
+    const version='a05ccc3';
     const files=['chunk-1.b64','chunk-2.b64','chunk-3.b64','chunk-4.b64'];
-    const parts=await Promise.all(files.map(file=>fetch(file,{cache:'no-store'}).then(r=>{
+    const parts=await Promise.all(files.map(file=>fetch(file+'?v='+version,{cache:'reload'}).then(r=>{
       if(!r.ok) throw new Error(file+' '+r.status);
       return r.text();
     })));
-    const binary=atob(parts.join('').trim());
+    const binary=atob(parts.join('').replace(/\s+/g,''));
     const bytes=Uint8Array.from(binary,c=>c.charCodeAt(0));
+    if(!('DecompressionStream' in window)) throw new Error('browser does not support gzip preview');
     const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
     const html=await new Response(stream).text();
     document.open();
