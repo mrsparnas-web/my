@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>VGTTX preview loader</title>
+<title>VGTTX preview</title>
 <style>html,body{margin:0;background:#020304;color:#fff;font-family:Arial,sans-serif}#loading{position:fixed;inset:0;display:grid;place-items:center;font-size:12px;letter-spacing:.18em;text-transform:uppercase}</style>
 </head>
 <body>
@@ -11,16 +11,20 @@
 <script>
 (async function(){
   try{
-    const names=['part-1.txt','part-2.txt','part-3.txt','part-4.txt','part-5.txt'];
-    const parts=await Promise.all(names.map(name=>fetch(name,{cache:'no-store'}).then(r=>{
-      if(!r.ok) throw new Error(name+' '+r.status);
+    const files=['chunk-1.b64','chunk-2.b64','chunk-3.b64','chunk-4.b64'];
+    const parts=await Promise.all(files.map(file=>fetch(file,{cache:'no-store'}).then(r=>{
+      if(!r.ok) throw new Error(file+' '+r.status);
       return r.text();
     })));
+    const binary=atob(parts.join('').trim());
+    const bytes=Uint8Array.from(binary,c=>c.charCodeAt(0));
+    const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
+    const html=await new Response(stream).text();
     document.open();
-    document.write(parts.join(''));
+    document.write(html);
     document.close();
   }catch(error){
-    document.getElementById('loading').textContent='Preview load error: '+error.message;
+    document.getElementById('loading').textContent='Preview error: '+error.message;
   }
 })();
 </script>
