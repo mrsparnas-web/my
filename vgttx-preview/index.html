@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>VGTTX preview loader</title>
+<style>html,body{margin:0;background:#020304;color:#fff;font-family:Arial,sans-serif}#loading{position:fixed;inset:0;display:grid;place-items:center;font-size:12px;letter-spacing:.18em;text-transform:uppercase}</style>
+</head>
+<body>
+<div id="loading">Loading preview…</div>
+<script>
+(async function(){
+  try{
+    const names=['part-1.txt','part-2.txt','part-3.txt','part-4.txt','part-5.txt'];
+    const parts=await Promise.all(names.map(name=>fetch(name,{cache:'no-store'}).then(r=>{
+      if(!r.ok) throw new Error(name+' '+r.status);
+      return r.text();
+    })));
+    document.open();
+    document.write(parts.join(''));
+    document.close();
+  }catch(error){
+    document.getElementById('loading').textContent='Preview load error: '+error.message;
+  }
+})();
+</script>
+</body>
+</html>
