@@ -3,11 +3,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#2557FF">
+  <meta name="theme-color" content="#F3F2ED">
   <title>Yes, Chef! — исследование для профессиональной кухни</title>
   <link rel="stylesheet" href="./styles.css">
 </head>
-<body>
+<body class="is-loading">
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="preloader__meta">YES, CHEF! / RESEARCH</div>
+    <div class="preloader__logo">
+      <span>YES,</span>
+      <span>CHEF!</span>
+    </div>
+    <div class="preloader__line"><i></i></div>
+    <div class="preloader__year">2026</div>
+  </div>
+
   <main class="app" id="app">
     <header class="topbar" id="topbar">
       <div class="brand">YES, CHEF!</div>
@@ -19,54 +29,42 @@
       <section class="screen intro active" data-key="intro">
         <div class="intro__wordmark" aria-hidden="true">YES,<br>CHEF!</div>
         <div class="intro__content">
-          <div class="eyebrow eyebrow--light">Исследование продукта / 2026</div>
-          <h1>Помогите нам понять, как на самом деле создаются блюда.</h1>
-          <p class="intro__lead">Мы разрабатываем <strong>Yes, Chef!</strong> — голосовое приложение для профессиональных поваров, кондитеров и миксологов.</p>
-          <p class="intro__text">Нам важно понять ваш реальный процесс: от первой идеи и тестовой готовки до себестоимости, дегустации, запуска в меню и обратной связи гостей. Ответы помогут сделать инструмент, который подстраивается под работу кухни, а не навязывает ей чужую схему.</p>
-          <div class="intro__meta">2–3 минуты · без правильных и неправильных ответов</div>
+          <div class="eyebrow">Исследование / Yes, Chef!</div>
+          <h1>Поделитесь собственным опытом</h1>
+          <p class="intro__lead">Мы исследуем, как шефы, повара, кондитеры и миксологи разрабатывают новые блюда в реальной работе: от исходной задачи и тестовой проработки до дегустации и запуска.</p>
+          <p class="intro__text">Ваши ответы помогут спроектировать <strong>Yes, Chef!</strong> — цифрового помощника для профессиональной кухни — вокруг реальных рабочих процессов.</p>
+          <div class="intro__meta">Для представителей индустрии гостеприимства · 2–3 минуты</div>
         </div>
         <div class="nav nav--intro">
-          <button class="btn btn--white" type="button" data-next>Начать исследование</button>
+          <button class="btn btn--primary" type="button" data-next>Начать опрос</button>
         </div>
       </section>
 
       <section class="screen profile" data-key="profile">
         <div class="eyebrow">Перед началом</div>
         <h2>Немного о вас</h2>
-        <p class="lead">Эти данные нужны только для контекста исследования.</p>
+        <p class="lead">Только несколько данных для контекста исследования.</p>
         <div class="fields">
-          <input class="text-input" type="text" name="name" autocomplete="name" placeholder="Имя" required>
           <input class="text-input" type="text" name="city" autocomplete="address-level2" placeholder="Город" required>
           <input class="text-input" type="text" name="country" autocomplete="country-name" placeholder="Страна" required>
-          <input class="text-input" type="text" name="role" autocomplete="organization-title" placeholder="Роль — шеф, су-шеф, повар…" required>
+          <input class="text-input" type="text" name="role" autocomplete="organization-title" placeholder="Должность — шеф, су-шеф, повар…" required>
         </div>
         <div class="error" aria-live="polite"></div>
         <div class="nav">
-          <button class="btn btn--back" type="button" data-back>←</button>
+          <button class="btn btn--back" type="button" data-back aria-label="Назад">←</button>
           <button class="btn btn--primary" type="button" data-next>Дальше</button>
         </div>
       </section>
 
       <div id="questions"></div>
 
-      <section class="screen" data-key="comment">
-        <div class="eyebrow">Финиш</div>
-        <h2>Что мы не спросили, но это важно?</h2>
-        <p class="lead">Необязательно. Одной фразы достаточно.</p>
-        <textarea name="comment" inputmode="text" placeholder="Например: приложение обязательно должно…"></textarea>
-        <div class="error" aria-live="polite"></div>
-        <div class="nav">
-          <button class="btn btn--back" type="button" data-back>←</button>
-          <button class="btn btn--primary" id="submitBtn" type="button">Отправить</button>
-        </div>
-        <p class="privacy">Для географии исследования автоматически определяется примерный город и регион по IP. Сам IP-адрес не сохраняется.</p>
-      </section>
-
       <section class="screen success" data-key="success">
-        <div class="success__arrow">↗</div>
-        <div class="eyebrow">Готово</div>
-        <h2>Спасибо.<br>Ответ принят.</h2>
-        <p class="lead">Можно возвращаться к кухне.</p>
+        <div class="success__ghost" aria-hidden="true">СПАСИБО</div>
+        <div class="success__mark" aria-hidden="true"><span></span></div>
+        <div class="eyebrow">Исследование завершено</div>
+        <h2>Спасибо за ваш опыт.</h2>
+        <p class="lead">Ответы сохранены. Они помогут нам спроектировать Yes, Chef! вокруг реальных процессов профессиональной кухни.</p>
+        <div class="success__signoff">YES, CHEF! / 2026</div>
       </section>
     </form>
   </main>
