@@ -1,0 +1,4 @@
+@media (max-width:699px){
+  .options{gap:0;margin-top:17px;border-top:1px solid var(--ink)}
+  .option{min-height:48px;border:0;border-bottom:1px solid var(--line);padding:10px 8px}
+}
