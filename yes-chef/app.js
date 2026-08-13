@@ -254,12 +254,10 @@ form.addEventListener('click', event => {
     event.preventDefault();
     if(validateCurrent()) goTo(index + 1);
   }
-
   if(back){
     event.preventDefault();
     goTo(index - 1);
   }
-
   if(submit){
     event.preventDefault();
     if(validateCurrent()) submitSurvey();
@@ -278,19 +276,16 @@ function goTo(nextIndex){
 
 function updateProgress(){
   const key = screens[index].dataset.key;
-
   if(key === 'intro'){
     progressBar.style.width = '0%';
     counter.textContent = '2–3 минуты';
     return;
   }
-
   if(key === 'profile'){
     progressBar.style.width = '0%';
     counter.textContent = 'о вас';
     return;
   }
-
   if(key === 'success'){
     progressBar.style.width = '100%';
     counter.textContent = 'готово';
@@ -312,7 +307,7 @@ function validateCurrent(){
   if(screen.dataset.key === 'profile'){
     const missing = [...screen.querySelectorAll('[required]')].find(field => !field.value.trim());
     if(missing){
-      error.textContent = 'Заполните город, страну и должность.';
+      error.textContent = 'Заполните имя, город и должность.';
       missing.focus();
       return false;
     }
@@ -354,9 +349,9 @@ function valueOf(name){
 
 function payload(){
   return {
-    name:'',
+    name:valueOf('name'),
     city:valueOf('city'),
-    country:valueOf('country'),
+    country:'',
     role:valueOf('role'),
     geo_city:geo.city,
     geo_region:geo.region,
