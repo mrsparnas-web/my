@@ -2,64 +2,130 @@ const ENDPOINT = 'https://script.google.com/macros/s/AKfycbziWAOxqe25FzQLAMdS-g3
 
 const QUESTIONS = [
   {
-    name:'q1', type:'single', kicker:'01 / старт',
-    title:'С чего чаще начинается разработка нового блюда?',
-    options:['Задача от ресторана / руководителя','Сезонность','Продукт или товарная матрица','Целевая себестоимость / food cost','Идея вкуса / собственная идея'],
-    other:'Напиши свой вариант'
+    name:'q1', type:'multi', kicker:'01 / старт',
+    title:'С чего для вас обычно начинается разработка нового блюда?',
+    options:[
+      'Задача от проекта / руководителя',
+      'Сезонность',
+      'Идея блюда или вкусовая концепция',
+      'Конкретный продукт',
+      'Анализ складских остатков'
+    ]
   },
   {
-    name:'q2', type:'single', kicker:'02 / поиск',
-    title:'Что ты обычно делаешь первым после получения задачи?',
-    options:['Ищу рецепты и технологии','Проверяю продукты / товарную матрицу','Считаю себестоимость','Сразу делаю тест','Обсуждаю с командой'],
-    other:'Напиши свой вариант'
+    name:'q2', type:'single', kicker:'02 / первое действие',
+    title:'Что вы обычно делаете первым после появления задачи или идеи?',
+    options:[
+      'Ищу рецепты и технологии',
+      'Анализирую товарную матрицу',
+      'Проверяю наличие продуктов и складские остатки',
+      'Сразу приступаю к проработке блюда',
+      'Обсуждаю задачу с командой'
+    ]
   },
   {
-    name:'q3', type:'multi', kicker:'03 / контекст',
-    title:'Что приложение должно знать о твоём ресторане заранее?',
-    options:['Товарная матрица','Оборудование кухни','Поставщики и закупочные цены','Допустимый food cost','Текущее меню','Время / возможности команды'],
-    other:'Что ещё важно знать?'
+    name:'q3', type:'multi', kicker:'03 / контекст проекта',
+    title:'Какие данные о проекте важно учитывать ещё до начала проработки?',
+    options:[
+      'Товарная матрица',
+      'Складские остатки',
+      'Допустимая себестоимость блюда',
+      'Закупочные цены и поставщики',
+      'Доступное оборудование',
+      'Время приготовления',
+      'Текущее меню'
+    ]
   },
   {
-    name:'q4', type:'multi', kicker:'04 / тест',
-    title:'Что важно фиксировать прямо во время тестовой готовки?',
-    options:['Количество ингредиентов','Все изменения по ходу','Отдельные полуфабрикаты / компоненты','Комментарии по вкусу / текстуре','Почему было принято решение','Время и технология'],
-    other:'Что ещё фиксируешь?'
+    name:'q4', type:'multi', kicker:'04 / тестовая проработка',
+    title:'Что важно фиксировать непосредственно во время тестовой проработки блюда?',
+    options:[
+      'Количество ингредиентов и граммовки',
+      'Фактические изменения по ходу проработки',
+      'Комментарии по вкусу и текстуре',
+      'Изменения в полуфабрикатах',
+      'Время приготовления',
+      'Использованное оборудование',
+      'Выход продукта и потери'
+    ]
   },
   {
-    name:'q5', type:'single', kicker:'05 / версии',
-    title:'Как ты обычно различаешь версии одного блюда?',
-    options:['Номера версий','Даты','По тому, что именно меняли','Фото / заметки','В основном держу в голове'],
-    other:'Как именно?'
+    name:'q5', type:'multi', kicker:'05 / фиксация результатов',
+    title:'Как вы обычно фиксируете результаты проработки?',
+    options:[
+      'В заметках на телефоне',
+      'В бумажном журнале или блокноте',
+      'В таблицах или документах',
+      'В iiko / 1С / другой учётной системе',
+      'В рабочих чатах или мессенджерах',
+      'С помощью фото или видео',
+      'Не фиксирую системно, держу в голове'
+    ]
   },
   {
-    name:'q6', type:'multi', kicker:'06 / дегустация',
-    title:'Что было бы полезно от приложения во время дегустации?',
-    options:['Различать участников по голосам','Записывать комментарии каждого','Собирать общий итог','Предлагать следующую доработку','Сразу учитывать себестоимость','Мне это не нужно'],
-    other:'Что ещё?'
+    name:'q6', type:'single', kicker:'06 / себестоимость',
+    title:'На каком этапе себестоимость начинает влиять на разработку блюда?',
+    options:[
+      'Ещё до начала проработки',
+      'При выборе продуктов и технологии',
+      'После первой проработки',
+      'После дегустации, перед вводом в меню',
+      'Это не моя зона ответственности'
+    ]
   },
   {
-    name:'q7', type:'single', kicker:'07 / деньги',
-    title:'Когда себестоимость начинает влиять на разработку?',
-    options:['До выбора рецепта / концепции','Во время выбора вариантов','После первого теста','После успешной дегустации','Этим занимается не повар'],
-    other:'Как у вас?'
+    name:'q7', type:'multi', kicker:'07 / дегустация',
+    title:'Какие аспекты вы обычно фиксируете во время дегустации?',
+    options:[
+      'Вкус и баланс',
+      'Аромат',
+      'Текстура',
+      'Температура подачи',
+      'Соответствие концепции',
+      'Внешний вид и подача',
+      'Комментарии участников дегустации',
+      'Ничего специально не фиксируем'
+    ]
   },
   {
     name:'q8', type:'multi', kicker:'08 / после запуска',
-    title:'Откуда после запуска блюда до тебя реально доходит фидбек?',
-    options:['Гости в ресторане','Официанты','Менеджер / управляющий','Отзывы доставки','Возвраты / недоеденные блюда','Почти никак не доходит'],
-    other:'Откуда ещё?'
+    title:'Как вы обычно получаете обратную связь по блюду после запуска?',
+    options:[
+      'Напрямую от гостей',
+      'Через официантов',
+      'Через менеджера или управляющего',
+      'Из отзывов на картах и других площадках',
+      'Из отзывов в сервисах доставки',
+      'По возвратам и недоеденным блюдам',
+      'Практически не получаю обратную связь'
+    ]
   },
   {
-    name:'q9', type:'multi', kicker:'09 / доставка',
-    title:'Что особенно важно отслеживать для доставки?',
-    options:['Температура','Текстура после дороги','Внешний вид','Упаковка / протечки','Комплектность','Время в пути','У нас нет доставки'],
-    other:'Что ещё?'
+    name:'q9', type:'multi', kicker:'09 / цифровой помощник',
+    title:'На каком этапе разработки блюда цифровой помощник был бы для вас наиболее полезен?',
+    options:[
+      'Поиск и адаптация рецептов',
+      'Работа с ограничениями проекта',
+      'Фиксация изменений во время проработки',
+      'Сохранение и сравнение разных версий',
+      'Расчёт себестоимости и выхода',
+      'Дегустация и сбор комментариев',
+      'Подготовка технологической карты',
+      'Анализ обратной связи после запуска'
+    ]
   },
   {
     name:'q10', type:'single', kicker:'10 / Yes, Chef!',
-    title:'Что бы ты первым попробовал сделать через Yes, Chef!?',
-    options:['Подобрать рецепты под условия ресторана','Записывать изменения во время готовки','Сравнивать версии блюда','Провести и разобрать дегустацию','Считать себестоимость и варианты замены','Собрать финальную ТТК','Анализировать фидбек гостей и доставки'],
-    other:'Что именно?'
+    title:'Что вы бы первым попробовали сделать через Yes, Chef!?',
+    options:[
+      'Найти и адаптировать рецептуру под условия проекта',
+      'Зафиксировать проработку блюда голосом',
+      'Сравнить несколько версий блюда',
+      'Рассчитать себестоимость и выход',
+      'Провести и зафиксировать дегустацию',
+      'Собрать технологическую карту',
+      'Разобрать обратную связь по уже запущенному блюду'
+    ]
   }
 ];
 
@@ -71,16 +137,21 @@ const form = document.getElementById('survey');
 const questionsRoot = document.getElementById('questions');
 const counter = document.getElementById('counter');
 const progressBar = document.getElementById('progressBar');
-const submitBtn = document.getElementById('submitBtn');
 const sink = document.getElementById('yeschefSink');
+const preloader = document.getElementById('preloader');
 
-questionsRoot.innerHTML = QUESTIONS.map((q, index) => {
+questionsRoot.innerHTML = QUESTIONS.map((q, questionIndex) => {
   const options = [...q.options, 'Другое'];
+  const isLast = questionIndex === QUESTIONS.length - 1;
+  const selectionText = q.type === 'multi'
+    ? 'Можно выбрать несколько вариантов'
+    : 'Выберите один вариант';
+
   return `
     <section class="screen" data-key="${q.name}" data-type="${q.type}">
       <div class="eyebrow">${esc(q.kicker)}</div>
       <h2>${esc(q.title)}</h2>
-      ${q.type === 'multi' ? '<p class="hint">Можно выбрать несколько.</p>' : ''}
+      <div class="selection-note">${esc(selectionText)}</div>
       <div class="options">
         ${options.map(option => `
           <label class="option ${q.type === 'multi' ? 'multi' : ''}">
@@ -91,20 +162,20 @@ questionsRoot.innerHTML = QUESTIONS.map((q, index) => {
         `).join('')}
       </div>
       <div class="other-wrap">
-        <input class="other-input" type="text" inputmode="text" name="${q.name}_other" placeholder="${esc(q.other)}">
+        <input class="other-input" type="text" inputmode="text" name="${q.name}_other" placeholder="Укажите свой вариант">
       </div>
       <div class="error" aria-live="polite"></div>
       <div class="nav">
-        <button class="btn btn--back" type="button" data-back>←</button>
-        <button class="btn btn--primary" type="button" data-next>${index === QUESTIONS.length - 1 ? 'Последний' : 'Дальше'}</button>
+        <button class="btn btn--back" type="button" data-back aria-label="Назад">←</button>
+        <button class="btn btn--primary" id="${isLast ? 'submitBtn' : ''}" type="button" ${isLast ? 'data-submit' : 'data-next'}>${isLast ? 'Отправить ответы' : 'Дальше'}</button>
       </div>
     </section>
   `;
 }).join('');
 
 const screens = [...document.querySelectorAll('.screen')];
-const commentIndex = screens.findIndex(screen => screen.dataset.key === 'comment');
 const successIndex = screens.findIndex(screen => screen.dataset.key === 'success');
+const submitBtn = document.getElementById('submitBtn');
 let index = 0;
 let submitting = false;
 let submitTimeout = null;
@@ -113,6 +184,20 @@ let geo = {
   city:'', region:'', country:'', country_code:'',
   timezone:Intl.DateTimeFormat().resolvedOptions().timeZone || ''
 };
+
+function finishPreloader(){
+  if(!document.body.classList.contains('is-loading')) return;
+  preloader?.classList.add('is-done');
+  document.body.classList.remove('is-loading');
+  document.body.classList.add('is-ready');
+  window.setTimeout(() => preloader?.remove(), 850);
+}
+
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+window.addEventListener('load', () => {
+  window.setTimeout(finishPreloader, reducedMotion ? 50 : 1650);
+});
+window.setTimeout(finishPreloader, reducedMotion ? 120 : 2800);
 
 async function detectRegion(){
   try{
@@ -126,7 +211,7 @@ async function detectRegion(){
     geo.country_code = data.country_code || '';
     geo.timezone = typeof data.timezone === 'object' ? (data.timezone?.id || geo.timezone) : (data.timezone || geo.timezone);
   }catch(_){
-    // Геолокация не должна мешать заполнению опроса.
+    // Определение региона не должно мешать прохождению опроса.
   }
 }
 detectRegion();
@@ -163,19 +248,22 @@ form.addEventListener('change', event => {
 form.addEventListener('click', event => {
   const next = event.target.closest('[data-next]');
   const back = event.target.closest('[data-back]');
+  const submit = event.target.closest('[data-submit]');
 
   if(next){
     event.preventDefault();
     if(validateCurrent()) goTo(index + 1);
   }
+
   if(back){
     event.preventDefault();
     goTo(index - 1);
   }
-});
 
-submitBtn.addEventListener('click', () => {
-  if(validateCurrent()) submitSurvey();
+  if(submit){
+    event.preventDefault();
+    if(validateCurrent()) submitSurvey();
+  }
 });
 
 function goTo(nextIndex){
@@ -184,26 +272,36 @@ function goTo(nextIndex){
   index = nextIndex;
   screens[index].classList.add('active');
   document.activeElement?.blur();
-  window.scrollTo({top:0, behavior:'instant'});
+  window.scrollTo({top:0, behavior:'auto'});
   updateProgress();
 }
 
 function updateProgress(){
   const key = screens[index].dataset.key;
+
   if(key === 'intro'){
     progressBar.style.width = '0%';
     counter.textContent = '2–3 минуты';
     return;
   }
+
+  if(key === 'profile'){
+    progressBar.style.width = '0%';
+    counter.textContent = 'о вас';
+    return;
+  }
+
   if(key === 'success'){
     progressBar.style.width = '100%';
     counter.textContent = 'готово';
     return;
   }
-  const visibleStep = Math.max(0, index - 1);
-  const totalSteps = commentIndex - 1;
-  progressBar.style.width = `${Math.min(100, (visibleStep / totalSteps) * 100)}%`;
-  counter.textContent = index === 1 ? 'о вас' : `${index - 1} / ${QUESTIONS.length}`;
+
+  const questionNumber = QUESTIONS.findIndex(question => question.name === key) + 1;
+  if(questionNumber > 0){
+    progressBar.style.width = `${(questionNumber / QUESTIONS.length) * 100}%`;
+    counter.textContent = `${String(questionNumber).padStart(2,'0')} / ${String(QUESTIONS.length).padStart(2,'0')}`;
+  }
 }
 
 function validateCurrent(){
@@ -214,7 +312,7 @@ function validateCurrent(){
   if(screen.dataset.key === 'profile'){
     const missing = [...screen.querySelectorAll('[required]')].find(field => !field.value.trim());
     if(missing){
-      error.textContent = 'Заполни четыре поля.';
+      error.textContent = 'Заполните город, страну и должность.';
       missing.focus();
       return false;
     }
@@ -222,7 +320,9 @@ function validateCurrent(){
 
   if(['single','multi'].includes(screen.dataset.type)){
     if(!screen.querySelector('input:checked')){
-      error.textContent = 'Выбери хотя бы один вариант.';
+      error.textContent = screen.dataset.type === 'single'
+        ? 'Выберите один вариант.'
+        : 'Выберите хотя бы один вариант.';
       return false;
     }
 
@@ -230,7 +330,7 @@ function validateCurrent(){
     if(otherSelected){
       const otherField = screen.querySelector('.other-input');
       if(!otherField.value.trim()){
-        error.textContent = 'Напиши свой вариант.';
+        error.textContent = 'Укажите свой вариант.';
         otherField.focus();
         return false;
       }
@@ -254,7 +354,7 @@ function valueOf(name){
 
 function payload(){
   return {
-    name:valueOf('name'),
+    name:'',
     city:valueOf('city'),
     country:valueOf('country'),
     role:valueOf('role'),
@@ -273,7 +373,7 @@ function payload(){
     q8:valueOf('q8'),
     q9:valueOf('q9'),
     q10:valueOf('q10'),
-    comment:valueOf('comment')
+    comment:''
   };
 }
 
@@ -281,7 +381,7 @@ function submitSurvey(){
   if(submitting) return;
   submitting = true;
   submitBtn.disabled = true;
-  submitBtn.textContent = 'Отправляю…';
+  submitBtn.textContent = 'Отправляем…';
 
   const transport = document.createElement('form');
   transport.method = 'POST';
@@ -304,9 +404,9 @@ function submitSurvey(){
     if(!submitting) return;
     submitting = false;
     submitBtn.disabled = false;
-    submitBtn.textContent = 'Отправить';
+    submitBtn.textContent = 'Отправить ответы';
     const error = screens[index].querySelector('.error');
-    error.textContent = 'Не удалось подтвердить отправку. Проверь интернет и попробуй ещё раз.';
+    if(error) error.textContent = 'Не удалось подтвердить отправку. Проверьте интернет и попробуйте ещё раз.';
     transport.remove();
   }, 12000);
 
