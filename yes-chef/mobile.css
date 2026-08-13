@@ -1,4 +1,25 @@
 @media (max-width:699px){
+  .app{padding:14px 14px calc(18px + env(safe-area-inset-bottom))}
+  .topbar{gap:12px;padding-bottom:10px}
+  .brand{font-size:14px}
+  .counter{font-size:11px}
+  .progress{height:2px}
+
+  .screen{min-height:calc(100svh - 62px);padding-top:20px;padding-bottom:96px}
+  .intro,.success{padding-bottom:18px}
+  .eyebrow{margin-bottom:12px;font-size:10px;letter-spacing:.11em}
+  h2{font-size:clamp(30px,8.6vw,36px);line-height:.98;letter-spacing:-.052em}
+  .lead{margin-top:14px;font-size:14px;line-height:1.42}
+
+  .selection-note{margin-top:12px;gap:7px;font-size:10px;letter-spacing:.07em}
+  .selection-note::before{width:6px;height:6px}
+
+  .fields{margin-top:22px}
+  .text-input,.other-input{padding:14px 0;font-size:17px}
+
   .options{gap:0;margin-top:17px;border-top:1px solid var(--ink)}
-  .option{min-height:48px;border:0;border-bottom:1px solid var(--line);padding:10px 8px}
+  .option{grid-template-columns:17px 1fr;gap:11px;min-height:48px;border:0;border-bottom:1px solid var(--line);padding:10px 8px}
+  .mark{width:17px;height:17px}
+  .option.selected{border-bottom-color:var(--blue)}
+  .option__text{font-size:15.5px;line-height:1.2;letter-spacing:-.018em}
 }
